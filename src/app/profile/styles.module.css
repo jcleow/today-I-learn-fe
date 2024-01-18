@@ -1,0 +1,12 @@
+.profile{
+    display: flex;
+    flex-direction: column;
+}
+
+/* The margin: auto property does not work by itself to center an element
+horizontally or vertically when using flexbox.
+The margin: auto property is primarily used to distribute the remaining space
+evenly between flex items along the main axis. */
+.previews {
+    margin: auto
+}
