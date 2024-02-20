@@ -1,18 +1,21 @@
-.title {
-    margin-top: 3em;
-    margin-bottom: 10px;
-}
-
-.sub{
+.sub {
     font-size: 12px;
     margin-bottom: 3em;
 }
 
-
 .page {
+    display: flex;
+    justify-content: center;
     margin: auto 30% 30%;
+    margin-top: 3em;
+    margin-bottom: 10px;
 }
 
 .article-paragraph {
     margin-top: 4em
+}
+
+.returnBtn {
+    margin-top: 22px;
+    padding-right:10%;
 }

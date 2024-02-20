@@ -4,6 +4,8 @@ import {extractToken} from "@/lib/helpers.js"
 import styles from "./styles.module.css"
 import Navbar from "../../components/navbar"
 import Pagination from '@mui/material/Pagination';
+import ReturnBtn from "@/components/returnBtn";
+import Stack from "@mui/material/Stack";
 
 const MAX_ARTICLES_PER_PAGE = 10
 interface ArticlePreview {
@@ -49,26 +51,31 @@ function ArticlePreview({preview}: PreviewProps){
         return (<></>)
     }
     return (
-    <>
-        <sub className={styles.subscript}>{createdAt}</sub>
-        <h3 className={styles.h3Element}>
-            <a className={styles.aElement} href={`http://localhost:5555/article/${id}`}>{title}</a>
-        </h3>
-    </>
+        <>
+            <sub className={styles.subscript}>{createdAt}</sub>
+            <h3 className={styles.h3Element}>
+                <a className={styles.aElement} href={`http://localhost:5555/article/${id}`}>{title}</a>
+            </h3>
+        </>
     )
 }
 
-function ArticlePreviews({previews}: PreviewsProps): React.ReactElement[] {
-    return previews.map((preview: ArticlePreview)=>{
-        return <ArticlePreview preview={preview} key={preview.id}/>
-    })
-}
+function ArticlePreviews({ previews }: PreviewsProps): React.ReactElement[] {
+    return previews.map((preview: ArticlePreview, index: number) => (
+      <div key={index}>
+        <ArticlePreview preview={preview} key={preview.id} />
+      </div>
+    ));
+  }
+
 
 //https://www.reddit.com/r/nextjs/comments/16b6ozn/setting_cookies_in_nextjs_13_do_you_have_fetch_a/
 export default function ProfilePage(){
     const [page, setPage] = useState(1)
     const [maxPage, setMaxPage] = useState(3)
     const [articlePreviews, setArticlePreviews]  = useState([])
+
+    const backUrl = "/"
 
     function handleChange(event: React.ChangeEvent<unknown>, value: number){
         setPage(value);
@@ -86,16 +93,23 @@ export default function ProfilePage(){
             <Navbar/>
             <div className={styles.profile}>
                 <div className={styles.previews}>
-                    <ArticlePreviews previews={articlePreviews}/>
+                    <div className={styles.returnBtn}>
+                        <ReturnBtn refUrl={backUrl} />
+                    </div>
+                    <div>
+                        <ArticlePreviews previews={articlePreviews}/>
+                    </div>
                 </div>
-                <Pagination
-                    className={styles.pagination}
-                    count={maxPage}
-                    boundaryCount={maxPage}
-                    page={page}
-                    variant="outlined"
-                    onChange={handleChange}
-                />
+                <Stack alignItems={"center"}>
+                    <Pagination
+                        className={styles.pagination}
+                        count={maxPage}
+                        boundaryCount={maxPage}
+                        page={page}
+                        variant="outlined"
+                        onChange={handleChange}
+                    />
+                </Stack>
             </div>
         </>
     )

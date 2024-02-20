@@ -4,6 +4,7 @@ import {extractToken} from "@/lib/helpers.js"
 import React, { useEffect, useState } from "react"
 import { Inter } from 'next/font/google'
 import styles from './article.module.css'
+import ReturnBtn from "@/components/returnBtn"
 
 // Font
 export const inter = Inter({
@@ -42,12 +43,12 @@ interface Article {
 
 function Article({article}: ArticleProps): React.ReactElement{
 	// https://dribbble.com/shots/22080456-Blog-Experiment
-	const titleStyles = `${inter.className} ${styles.title}`
+	// const titleStyles = `${inter.className} ${styles.title}`
 	const paragraphs = article.summary?.split('\n');
 
 	return (
-		<div className={styles.page}>
-			<h1 className={titleStyles}>{article.title}</h1>
+		<>
+			<h1 className={inter.className}>{article.title}</h1>
 			<div className={styles.sub}>{article.createdAt}</div>
 			<div>Sources:
 				{
@@ -64,13 +65,14 @@ function Article({article}: ArticleProps): React.ReactElement{
 				<p key={index}>{paragraph}</p>
 			))}
 			</div>
-		</div>
+		</>
 	)
 }
 
 export default function Page() {
 	const [article, setArticle] = useState({})
 	const router = useRouter()
+	const backUrl = "/profile"
 
 	useEffect(()=>{
 		(async () => {
@@ -81,13 +83,17 @@ export default function Page() {
 
 			const res = await fetchUserArticle(slug)
 			setArticle(res)
-			console.log(res, "res")
 		})()
 	},[router.query.slug])
 
 	return (
-		<>
-			<Article article={article}/>
-		</>
+		<div className={styles.page}>
+			<div className={styles.returnBtn}>
+				<ReturnBtn refUrl={backUrl} />
+			</div>
+			<div>
+				<Article article={article}/>
+			</div>
+		</div>
 	)
 }
