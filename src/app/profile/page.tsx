@@ -2,7 +2,10 @@
 import React, {useEffect, useState} from "react"
 import {extractToken} from "@/lib/helpers.js"
 import styles from "./styles.module.css"
+import Navbar from "../../components/navbar"
+import Pagination from '@mui/material/Pagination';
 
+const MAX_ARTICLES_PER_PAGE = 10
 interface ArticlePreview {
     id: string
     title: string
@@ -14,10 +17,21 @@ interface ArticlePreview {
     updatedAt: string
 }
 
-const fetchUserArticles = async () => {
+
+interface PreviewProps {
+    preview: ArticlePreview
+}
+
+
+interface PreviewsProps {
+    previews: ArticlePreview[]
+}
+
+
+const fetchUserArticles = async (page: number = 0, itemLimit: number = 10) => {
     const token = await extractToken()
     const res = await fetch(
-        "http://localhost:3000/api/v1/article",{
+        `http://localhost:3000/api/v1/article?page=${page}&item_limit=${itemLimit}`,{
             method: "get",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -28,9 +42,6 @@ const fetchUserArticles = async () => {
     return await res.json();
 }
 
-interface PreviewProps {
-    preview: ArticlePreview
-}
 
 function ArticlePreview({preview}: PreviewProps){
     const {id, title,status, createdAt} = preview
@@ -39,16 +50,12 @@ function ArticlePreview({preview}: PreviewProps){
     }
     return (
     <>
-        <sub>{createdAt}</sub>
-        <h3>
-            <a href={`http://localhost:5555/${id}`}>{title}</a>
+        <sub className={styles.subscript}>{createdAt}</sub>
+        <h3 className={styles.h3Element}>
+            <a className={styles.aElement} href={`http://localhost:5555/article/${id}`}>{title}</a>
         </h3>
     </>
     )
-}
-
-interface PreviewsProps {
-    previews: ArticlePreview[]
 }
 
 function ArticlePreviews({previews}: PreviewsProps): React.ReactElement[] {
@@ -59,18 +66,37 @@ function ArticlePreviews({previews}: PreviewsProps): React.ReactElement[] {
 
 //https://www.reddit.com/r/nextjs/comments/16b6ozn/setting_cookies_in_nextjs_13_do_you_have_fetch_a/
 export default function ProfilePage(){
+    const [page, setPage] = useState(1)
+    const [maxPage, setMaxPage] = useState(3)
     const [articlePreviews, setArticlePreviews]  = useState([])
+
+    function handleChange(event: React.ChangeEvent<unknown>, value: number){
+        setPage(value);
+    }
+
     useEffect( () => {
         (async() => {
-            const res = await fetchUserArticles()
-            setArticlePreviews(res)
+            const res = await fetchUserArticles(page - 1)
+            setArticlePreviews(res?.articles)
+            setMaxPage(Math.ceil(res.count/MAX_ARTICLES_PER_PAGE))
         })()
-    },[])
+    },[page])
     return (
-        <div className={styles.profile}>
-            <div className={styles.previews}>
-                <ArticlePreviews previews={articlePreviews}/>
+        <>
+            <Navbar/>
+            <div className={styles.profile}>
+                <div className={styles.previews}>
+                    <ArticlePreviews previews={articlePreviews}/>
+                </div>
+                <Pagination
+                    className={styles.pagination}
+                    count={maxPage}
+                    boundaryCount={maxPage}
+                    page={page}
+                    variant="outlined"
+                    onChange={handleChange}
+                />
             </div>
-        </div>
+        </>
     )
 }
