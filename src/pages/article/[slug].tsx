@@ -2,16 +2,9 @@
 import { useRouter } from "next/router"
 import {extractToken} from "@/lib/helpers.js"
 import React, { useEffect, useState } from "react"
-import { Inter } from 'next/font/google'
+import inter from "../../app/fonts"
 import styles from './article.module.css'
 import ReturnBtn from "@/components/returnBtn"
-
-// Font
-export const inter = Inter({
-    weight: "300",
-    subsets: ['latin'],
-    display: 'swap',
-})
 
 const fetchUserArticle = async (slug: string | undefined) => {
 	const token = await extractToken()
@@ -72,7 +65,6 @@ export default function Page() {
 	const [article, setArticle] = useState()
 	const router = useRouter()
 	const backUrl = "/profile"
-
 	useEffect(()=>{
 		(async () => {
 			const slug = router.query.slug?.toString()
@@ -83,6 +75,7 @@ export default function Page() {
 			const res = await fetchUserArticle(slug)
 			setArticle(res)
 		})()
+		console.log("test")
 	},[router.query.slug])
 
 	return (
