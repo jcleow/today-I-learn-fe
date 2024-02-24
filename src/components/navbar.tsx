@@ -66,7 +66,7 @@ export default function Navbar() {
                     </MenuItem>
                     <MenuItem onClick={handleClose}>
                         <ListItemIcon><AddIcon fontSize="small"/></ListItemIcon>
-                        <div> Add New Article</div>
+                        <Link href="/createArticle" style={{textDecoration: 'none', color: '#000'}}>Add Article </Link>
                     </MenuItem>
                     <MenuItem>
                         <ListItemIcon><LogoutRoundedIcon fontSize="small"/></ListItemIcon>

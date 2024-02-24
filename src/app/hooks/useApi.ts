@@ -5,6 +5,7 @@ const useApi = <T>(url: string) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<Error | null | unknown>(null);
     const [response, setResponse] = useState<Response| null>(null);
+    const [statusCode, setStatusCode] = useState<number| null>(null);
 
     const fetchData = async (data: T, method: string = "GET") => {
         setIsLoading(true);
@@ -21,7 +22,7 @@ const useApi = <T>(url: string) => {
                     body: JSON.stringify({...data})
                 }
             );
-            console.log(response, 'response')
+            setStatusCode(response.status)
             setResponse(response);
             setError(null);
         } catch (error: unknown) {
@@ -32,7 +33,8 @@ const useApi = <T>(url: string) => {
             setIsLoading(false);
         }
   };
-    return { fetchData, isLoading, error, response };
+
+    return { fetchData, isLoading, error, response, statusCode };
 };
 
 export default useApi;

@@ -1,13 +1,15 @@
 "use client"
 import * as React from "react"
+import { useEffect } from "react"
 import {Controller, useForm} from "react-hook-form"
-// import {extractToken} from "@/lib/helpers.js"
 import styles from "./createArticle.module.css"
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box';
 import Inter from '../fonts'
 import useApi from "../hooks/useApi"
+import navigate from "../actions"
+
 
 // Consider using https://github.com/dohomi/react-hook-form-mui
 type FormData = {
@@ -20,20 +22,24 @@ const inter = Inter
 const createArticleEndpoint = "http://localhost:3000/api/v1/article"
 
 export default function CreateArticle() {
-	const {
-		handleSubmit,
-		control,
-	} = useForm<FormData>({
+	const { handleSubmit, control} = useForm<FormData>({
 		defaultValues: {
-			title:"", summary:""
+			title:"",
+			summary:""
 		}
 	})
 
-	const { fetchData } = useApi<FormData>(createArticleEndpoint)
+	const { fetchData, statusCode } = useApi<FormData>(createArticleEndpoint)
     const onSubmit = async (data: FormData, e?: React.BaseSyntheticEvent) => {
 		await fetchData(data, "POST")
 		e?.preventDefault()
     }
+
+	useEffect(()=>{
+		if (statusCode === 201) {
+			navigate("/profile")
+		}
+	},[statusCode])
 
   return (
     <>
