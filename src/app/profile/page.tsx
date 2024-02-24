@@ -52,10 +52,10 @@ function ArticlePreview({preview}: PreviewProps){
     }
     return (
         <>
-            <sub className={styles.subscript}>{createdAt}</sub>
             <h3 className={styles.h3Element}>
                 <a className={styles.aElement} href={`http://localhost:5555/article/${id}`}>{title}</a>
             </h3>
+            <div className={styles.sub}>{createdAt}</div>
         </>
     )
 }

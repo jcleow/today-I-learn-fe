@@ -11,6 +11,7 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { MenuList } from "@mui/material";
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function Navbar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -46,7 +47,7 @@ export default function Navbar() {
                     slotProps={{
                         paper:{
                             style:{
-                                width: '150px',
+                                width: '200px',
                                 maxHeight: '100%'
                             }
                         }
@@ -61,8 +62,12 @@ export default function Navbar() {
                     </MenuItem>
                     <MenuItem onClick={handleClose}>
                         <ListItemIcon><Person2RoundedIcon fontSize="small"/></ListItemIcon>
-                            <Link href="/profile" style={{textDecoration: 'none', color: '#000'}}>Profile </Link>
-                        </MenuItem>
+                        <Link href="/profile" style={{textDecoration: 'none', color: '#000'}}>Profile </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                        <ListItemIcon><AddIcon fontSize="small"/></ListItemIcon>
+                        <div> Add New Article</div>
+                    </MenuItem>
                     <MenuItem>
                         <ListItemIcon><LogoutRoundedIcon fontSize="small"/></ListItemIcon>
                         <Link href="/logout" style={{textDecoration: 'none', color: '#000'}}>Logout</Link>

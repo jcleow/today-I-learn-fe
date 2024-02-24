@@ -26,7 +26,7 @@ const fetchUserArticle = async (slug: string | undefined) => {
 }
 
 interface ArticleProps{
-	article: Article
+	article?: Article;
 }
 
 interface Article {
@@ -43,16 +43,15 @@ interface Article {
 
 function Article({article}: ArticleProps): React.ReactElement{
 	// https://dribbble.com/shots/22080456-Blog-Experiment
-	// const titleStyles = `${inter.className} ${styles.title}`
-	const paragraphs = article.summary?.split('\n');
+	const paragraphs = article?.summary?.split('\n');
 
 	return (
 		<>
-			<h1 className={inter.className}>{article.title}</h1>
-			<div className={styles.sub}>{article.createdAt}</div>
+			<h1 className={inter.className}>{article?.title}</h1>
+			<div className={styles.sub}>{article?.createdAt}</div>
 			<div>Sources:
 				{
-				article.urls && article.urls.map((url)=>
+				article?.urls && article?.urls.map((url)=>
 					<li key={url}>
 						{url}
 					</li>
@@ -70,7 +69,7 @@ function Article({article}: ArticleProps): React.ReactElement{
 }
 
 export default function Page() {
-	const [article, setArticle] = useState({})
+	const [article, setArticle] = useState()
 	const router = useRouter()
 	const backUrl = "/profile"
 

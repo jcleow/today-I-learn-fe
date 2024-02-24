@@ -8,7 +8,6 @@ interface ReturnBtnProps {
 }
 
 export default function ReturnBtn({refUrl}: ReturnBtnProps): React.ReactElement{
-    console.log(refUrl,'refUrl')
     return (
         <Link href={refUrl} passHref>
             <IconButton aria-label="back">
