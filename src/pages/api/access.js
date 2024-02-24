@@ -1,6 +1,5 @@
 import cookie from "cookie"
 import { TOKEN_NAME } from "../../lib/constants"
-// import jwt_decode from "jwt-decode"
 
 export default async (req, res) => {
 	const cookies = cookie.parse(req.headers?.cookie ?? "")
