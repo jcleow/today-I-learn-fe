@@ -1,50 +1,37 @@
 "use client"
 import * as React from "react"
 import {Controller, useForm} from "react-hook-form"
-import {extractToken} from "@/lib/helpers.js"
+// import {extractToken} from "@/lib/helpers.js"
 import styles from "./createArticle.module.css"
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box';
 import Inter from '../fonts'
+import useApi from "../hooks/useApi"
 
 // Consider using https://github.com/dohomi/react-hook-form-mui
 type FormData = {
-  articleTitle: string
+  title: string
   summary: string
   urls: string[]
 }
 
 const inter = Inter
+const createArticleEndpoint = "http://localhost:3000/api/v1/article"
 
-export default function createArticle() {
+export default function CreateArticle() {
 	const {
 		handleSubmit,
 		control,
 	} = useForm<FormData>({
 		defaultValues: {
-			articleTitle:"", summary:""
+			title:"", summary:""
 		}
 	})
 
+	const { fetchData } = useApi<FormData>(createArticleEndpoint)
     const onSubmit = async (data: FormData, e?: React.BaseSyntheticEvent) => {
-		const token = await extractToken()
-		const response = await fetch(
-			"http://localhost:3000/api/v1/article",
-			{
-			headers: {
-				'Content-Type': 'application/json',
-				"Authorization": `Bearer ${token}`
-			},
-			method: "POST",
-			body: JSON.stringify({
-				title: data.articleTitle,
-				summary: data.summary,
-				urls: data.urls,
-			})
-			}
-		)
-		console.log(response,'response');
+		await fetchData(data, "POST")
 		e?.preventDefault()
     }
 
@@ -65,7 +52,7 @@ export default function createArticle() {
 			<div className={`${styles.formTitle} ${inter.className}`}> Create a new Article</div>
 				<div className={styles.formField}>
 					<Controller
-					name="articleTitle"
+					name="title"
 					control={control}
 					render={({field}) => <TextField
 						label="Article Title"
