@@ -10,6 +10,7 @@ import Inter from '../../fonts'
 import useApi from "../../hooks/useApi"
 import navigate from "../../actions"
 import { useToastContext } from "@/context/ToastContext"
+import Navbar from "@/components/navbar/navbar"
 
 // Consider using https://github.com/dohomi/react-hook-form-mui
 type FormData = {
@@ -47,6 +48,7 @@ export default function UpdateArticle() {
 
   return (
     <>
+	<Navbar/>
     {/* Box component is a building block in MUI v5, serves as a wrapper element to structure and layout my application */}
     <Box
 		component="form"

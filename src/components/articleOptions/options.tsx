@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
 import React, {useState} from 'react';
 import Box from '@mui/material/Box';
+import Link from 'next/link';
 
 export default function Options(){
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -12,7 +13,6 @@ export default function Options(){
         setAnchorEl(e.currentTarget);
     }
     const handleClose = () => {
-        console.log("handle close!")
         setAnchorEl(null);
     };
     return(
@@ -25,7 +25,9 @@ export default function Options(){
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}> Edit </MenuItem>
+                <MenuItem onClick={handleClose}>
+                    <Link href="/article/update" style={{textDecoration: 'none', color: '#000'}}>Edit</Link>
+                </MenuItem>
             </Menu>
         </Box>
     )
