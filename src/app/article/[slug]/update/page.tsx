@@ -34,7 +34,7 @@ export default function UpdateArticle({params}: {params: {slug: string}}) {
 
 	// Set up custom use article context to prepopulate the form with article
 	// However, this does not persist upon page refresh
-	// Either store in redux or localStorage
+	// Either store in redux or localStorage or give a warning before we refresh the page
 	const {article} = useArticleContext().state
 	const { handleSubmit, control} = useForm<FormData>({
 		defaultValues: {

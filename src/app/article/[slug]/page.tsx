@@ -1,13 +1,13 @@
 "use client"
 import {extractToken} from "@/lib/helpers.js"
-import React, { useEffect, useReducer} from "react"
+import React, { useEffect} from "react"
 import inter from "../../fonts"
 import styles from './article.module.css'
 import ReturnBtn from "@/components/returnBtn/returnBtn"
 import ArticleOptions from "@/components/articleOptions/options"
 import Navbar from "@/components/navbar/navbar"
 import Article from "../article"
-import { FetchAction, articleDetailsReducer, initialState, useArticleContext } from "@/context/ArticleContext"
+import { FetchAction, useArticleContext } from "@/context/ArticleContext"
 
 const fetchUserArticle = async (slug: string | undefined) => {
 	const token = await extractToken()
