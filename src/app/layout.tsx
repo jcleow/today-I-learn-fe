@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import React from 'react'
 import { ToastProvider } from '@/context/ToastContext'
+import { ArticleProvider } from '@/context/ArticleContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ToastProvider>
-          {children}
-        </ToastProvider>
+          <ToastProvider>
+            <ArticleProvider>
+              {children}
+            </ArticleProvider>
+          </ToastProvider>
       </body>
     </html>
   )

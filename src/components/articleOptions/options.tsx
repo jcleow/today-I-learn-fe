@@ -6,7 +6,10 @@ import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import Link from 'next/link';
 
-export default function Options(){
+interface OptionsProps {
+    slug: string
+}
+export default function Options({slug}: OptionsProps){
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const open = Boolean(anchorEl);
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -26,7 +29,7 @@ export default function Options(){
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleClose}>
-                    <Link href="/article/update" style={{textDecoration: 'none', color: '#000'}}>Edit</Link>
+                    <Link href={`/article/${slug}/update`} style={{textDecoration: 'none', color: '#000'}}>Edit</Link>
                 </MenuItem>
             </Menu>
         </Box>
