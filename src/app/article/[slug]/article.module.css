@@ -1,21 +1,47 @@
+.general {
+    display: grid;
+    grid-template-columns: 2fr 5fr 2fr;
+    grid-template-rows: 0.1fr 0.1fr 0.1fr 1fr;
+    grid-auto-flow: auto;
+    align-items: center;
+}
+
+.title {
+    justify-self: start;
+}
 .sub {
     font-size: 12px;
     margin-bottom: 3em;
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
 }
+.sources {
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: start;
+}
+
+.article-paragraph {
+    margin-top: 4em;
+    grid-column: 2;
+    grid-row: 4;
+    justify-self: start;
+}
+
 
 .page {
     display: flex;
     justify-content: center;
-    margin: auto 30% 30%;
+    margin: auto 20% 20%;
     margin-top: 3em;
     margin-bottom: 10px;
+    width: auto;
 }
 
-.article-paragraph {
-    margin-top: 4em
-}
 
 .returnBtn {
     margin-top: 22px;
-    padding-right:10%;
+    margin-left: 10px
 }
+
