@@ -1,8 +1,7 @@
 "use client"
-import { useRouter } from "next/router"
 import {extractToken} from "@/lib/helpers.js"
 import React, { useEffect, useState } from "react"
-import inter from "../../app/fonts"
+import inter from "../../fonts"
 import styles from './article.module.css'
 import ReturnBtn from "@/components/returnBtn/returnBtn"
 
@@ -61,22 +60,15 @@ function Article({article}: ArticleProps): React.ReactElement{
 	)
 }
 
-export default function Page() {
+export default function Page({params}: {params: {slug: string}}) {
 	const [article, setArticle] = useState()
-	const router = useRouter()
 	const backUrl = "/profile"
 	useEffect(()=>{
 		(async () => {
-			const slug = router.query.slug?.toString()
-			if (!slug){
-				return
-			}
-
-			const res = await fetchUserArticle(slug)
+			const res = await fetchUserArticle(params.slug)
 			setArticle(res)
 		})()
-		console.log("test")
-	},[router.query.slug])
+	},[])
 
 	return (
 		<div className={styles.page}>
