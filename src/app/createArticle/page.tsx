@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react"
-import { useEffect } from "react"
+import { useEffect} from "react"
 import {Controller, useForm} from "react-hook-form"
 import styles from "./createArticle.module.css"
 import TextField from '@mui/material/TextField'
@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import Inter from '../fonts'
 import useApi from "../hooks/useApi"
 import navigate from "../actions"
+import Toast from "@/components/Toast/toast"
+import { useToastContext } from "@/context/ToastContext"
 
 
 // Consider using https://github.com/dohomi/react-hook-form-mui
@@ -35,8 +37,11 @@ export default function CreateArticle() {
 		e?.preventDefault()
     }
 
+	const {setOpen, setMessage} = useToastContext()
 	useEffect(()=>{
 		if (statusCode === 201) {
+			setOpen(true)
+			setMessage("Article created successfully!")
 			navigate("/profile")
 		}
 	},[statusCode])

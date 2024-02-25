@@ -4,7 +4,7 @@ import {extractToken} from "@/lib/helpers.js"
 import React, { useEffect, useState } from "react"
 import inter from "../../app/fonts"
 import styles from './article.module.css'
-import ReturnBtn from "@/components/returnBtn"
+import ReturnBtn from "@/components/returnBtn/returnBtn"
 
 const fetchUserArticle = async (slug: string | undefined) => {
 	const token = await extractToken()

@@ -1,6 +1,6 @@
 "use client"
 import React, {useEffect} from "react"
-import Navbar from "@/components/navbar"
+import Navbar from "@/components/navbar/navbar"
 import styles from "./logout.module.css"
 import Link from "next/link"
 

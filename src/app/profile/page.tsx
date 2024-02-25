@@ -2,9 +2,9 @@
 import React, {useEffect, useState} from "react"
 import {extractToken} from "@/lib/helpers.js"
 import styles from "./styles.module.css"
-import Navbar from "../../components/navbar"
+import Navbar from "../../components/navbar/navbar"
 import Pagination from '@mui/material/Pagination';
-import ReturnBtn from "@/components/returnBtn";
+import ReturnBtn from "@/components/returnBtn/returnBtn";
 import Stack from "@mui/material/Stack";
 
 const MAX_ARTICLES_PER_PAGE = 10
